@@ -1,0 +1,741 @@
+openapi: 3.0.1
+info:
+  title: Evbox Resources Service API
+  description: >
+    This API provides the following functionality:
+      * Retrieves, creates, and updates information related to Evbox Resources.
+      
+    Notes:
+      * Used to store resources for Evbox Product Server
+  version: '1.0.0-SNAPSHOT'
+servers:
+  - url: http://localhost:8001/
+    description: Local Server
+tags:
+  - name: e-books
+    description: Endpoints for managing 'E-Books' resource data
+  - name: industry-reports
+    description: Endpoints for managing 'Industry Report' resource data.
+  - name: specifications
+    description: Endpoints for managing 'Specification' data.
+
+paths:
+  '/v1/evbx/e-books':
+    get:
+      tags:
+       - e-books
+      description: Returns all 'E-book' items.
+      responses:
+        200:
+          description: Returns all 'E-book' items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceItems'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+  '/v1/evbx/e-books/':
+    post:
+      tags:
+      - e-books
+      description: Creates 'E-book' entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceMutationItem'
+        description: Creates 'E-book' entity
+        required: true
+      responses:
+        200:
+          description: Returns the 'E-book' entity that was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceMutationItem'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        500:
+          description: Internal Server Error              
+  '/v1/evbx/e-books/{id}':
+    get:
+      tags:
+       - e-books
+      description: Returns 'E-book' based on id.
+      parameters:
+      - name: id
+        in: path
+        description: The E-Book Id to map entity
+        schema:
+            type: integer
+        required: true
+      responses:
+        200:
+          description: Return a E-Book mapped by Id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceItem'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+    patch:
+      tags:
+       - e-books
+      description: Updates 'E-book' based on id.
+      parameters:
+      - name: id
+        in: path
+        description: The E-Book Id to map entity
+        schema:
+            type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceMutationItem'
+        description: Updates 'E-book' entity
+        required: true
+      responses:
+        200:
+          description: Returns the 'E-book' entity that was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceMutationItem'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'        
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+    delete:
+      tags:
+      - e-books
+      description: Deletes 'E-book' entity
+      parameters:
+      - name: id
+        in: path
+        description: The E-Book Id to map entity
+        schema:
+            type: integer
+        required: true
+      responses:
+        200:
+          description: Returns message the 'E-book' entity that was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceDeletedItem'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'     
+  '/v1/evbx/e-books/ids':
+    get:
+      tags:
+       - e-books
+      description: Returns list of ids for 'E-book' items.
+      responses:
+        200:
+          description: Returns list of ids for 'E-book' items.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceIdItems'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+  '/v1/evbx/industry-reports':
+    get:
+      tags:
+       - industry-reports
+      description: Returns all 'Industry Report' items.
+      responses:
+        200:
+          description: Returns all 'Industry Report' items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceItems'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+  '/v1/evbx/industry-reports/':
+    post:
+      tags:
+      - industry-reports
+      description: Creates 'Industry Report' entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceMutationItem'
+        description: Creates 'Industry Report' entity
+        required: true
+      responses:
+        200:
+          description: Returns the 'Industry Report' entity that was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceMutationItem'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'              
+  '/v1/evbx/industry-reports/{id}':
+    get:
+      tags:
+       - industry-reports
+      description: Returns 'Industry Report' based on id.
+      parameters:
+      - name: id
+        in: path
+        description: The Industry Report Id to map entity
+        schema:
+            type: integer
+        required: true
+      responses:
+        200:
+          description: Return a Industry Report mapped by Id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceItem'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+        500:
+          description: Internal Server Error
+    patch:
+      tags:
+       - industry-reports
+      description: Updates 'Industry Report' based on id.
+      parameters:
+      - name: id
+        in: path
+        description: The Industry Report Id to map entity
+        schema:
+            type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceMutationItem'
+        description: Updates 'Industry Report' entity
+        required: true
+      responses:
+        200:
+          description: Returns the 'Industry Report' entity that was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceMutationItem'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'        
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+    delete:
+      tags:
+      - industry-reports
+      description: Deletes 'Industry Report' entity
+      parameters:
+      - name: id
+        in: path
+        description: The Industry Report Id to map entity
+        schema:
+            type: integer
+        required: true
+      responses:
+        200:
+          description: Returns message the 'Industry Report' entity that was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceDeletedItem'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'     
+  '/v1/evbx/industry-reports/ids':
+    get:
+      tags:
+       - industry-reports
+      description: Returns list of ids for 'E-book' items.
+      responses:
+        200:
+          description: Returns list of ids for 'E-book' items.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceIdItems'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+  '/v1/evbx/specifications':
+    get:
+      tags:
+       - specifications
+      description: Returns all 'Specification' items.
+      responses:
+        200:
+          description: Returns all 'Specification' items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceItems'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        500:
+          description: Internal Server Error
+  '/v1/evbx/e-specifications/':
+    post:
+      tags:
+      - specifications
+      description: Creates 'Specification' entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceMutationItem'
+        description: Creates 'Specification' entity
+        required: true
+      responses:
+        200:
+          description: Returns the 'Specification' entity that was created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceMutationItem'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        500:
+          description: Internal Server Error              
+  '/v1/evbx/specifications/{id}':
+    get:
+      tags:
+       - specifications
+      description: Returns 'Specification' based on id.
+      parameters:
+      - name: id
+        in: path
+        description: The Specification Id to map entity
+        schema:
+            type: integer
+        required: true
+      responses:
+        200:
+          description: Return a Specification mapped by Id
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceItem'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+    patch:
+      tags:
+       - specifications
+      description: Updates 'Specification' based on id.
+      parameters:
+      - name: id
+        in: path
+        description: The Specification Id to map entity
+        schema:
+            type: integer
+        required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ResourceMutationItem'
+        description: Updates 'Specification' entity
+        required: true
+      responses:
+        200:
+          description: Returns the 'Specification' entity that was updated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceMutationItem'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'        
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+    delete:
+      tags:
+      - specifications
+      description: Deletes 'Specification' entity
+      parameters:
+      - name: id
+        in: path
+        description: The E-Book Id to map entity
+        schema:
+            type: integer
+        required: true
+      responses:
+        200:
+          description: Returns message the 'Specification' entity that was deleted.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceDeletedItem'
+        404:
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorNotFound'
+        500:
+          description: Internal Server Error     
+  '/v1/evbx/specifications/ids':
+    get:
+      tags:
+       - specifications
+      description: Returns list of ids for 'Specification' items.
+      responses:
+        200:
+          description: Returns list of ids for 'Specification' items.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceIdItems'
+        400:
+          description: Bad Request 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorBadRequest'
+        500:
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorInternal'
+components:
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorBadRequest'
+    NotFound:
+      description: Resource Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorNotFound'
+    ServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorInternal'
+  schemas:
+    ErrorBadRequest:
+      type: object
+      required:
+        - timestamp
+        - status
+        - error
+        - errorMessages
+        - message
+        - path
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: 2020-03-09T18:33:53.209+0000
+        status:
+          type: integer
+          format: int32
+          description: response status
+          example: 404
+        error:
+          type: string
+          description: Error message
+          example: Bad Request
+        errorMessages:
+          type: array
+          items:
+            type: string
+            description: Detailed error message
+            example: resourseName is mandatory field
+        message:
+          type: string
+          description: Detailed error message
+          example: Validation failed
+        path:
+          type: string
+          description: endpoint that was invoked
+          nullable: true
+          example: /v1/evbx/resource-item/
+    ErrorInternal:
+      type: object
+      required:
+        - timestamp
+        - status
+        - error
+        - message
+        - path
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: 2020-03-09T18:33:53.209+0000
+        status:
+          type: integer
+          format: int32
+          description: response status
+          example: 500
+        error:
+          type: string
+          description: Concise error message
+          example: Internal Server Error
+        message:
+          type: string
+          description: Detailed error message
+          example: 
+        path:
+          type: string
+          description: endpoint that was invoked
+          nullable: true
+          example: /v1/evbx/resource-item/
+    ErrorNotFound:
+      type: object
+      required:
+        - timestamp
+        - status
+        - error
+        - message
+        - path
+      properties:
+        timestamp:
+          type: string
+          format: date-time
+          example: 2020-03-09T18:33:53.209+0000
+        status:
+          type: integer
+          format: int32
+          description: response status
+          example: 404
+        error:
+          type: string
+          description: Concise error message
+          example: Not Found
+        message:
+          type: string
+          description: Detailed error message
+          example: Resource item not found with id = 1.
+        path:
+          type: string
+          description: endpoint that was invoked
+          nullable: true
+          example: /v1/evbx/resource-item/    
+    ResourceItem:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: item id
+          example: 1
+          nullable: false
+        text:
+          type: string
+          description: Text for resource item
+          example: This is example text for resource item
+          nullable: false
+        description:
+          type: string
+          description: Description of the resource item
+          example: This is example description for resource item
+          nullable: false
+        name:
+          type: string
+          description: Name of resource
+          example: resourceName
+          nullable: false
+    ResourceMutationItem:
+      required:
+        - description
+        - text
+        - name
+      type: object
+      properties:
+        text:
+          type: string
+          description: Text for resource item
+          example: This is example text for resource item
+          nullable: false
+        description:
+          type: string
+          description: Description of the resource item
+          example: This is example description for resource item
+          nullable: false
+        name:
+          type: string
+          description: Name of resource
+          example: resourceName
+          nullable: false 
+    ResourceDeletedItem:
+      type: string
+      example: Deleted item with id = 1
+    ResourceItems:
+      type: array
+      items:
+        $ref: '#/components/schemas/ResourceItem'
+    ResourceIdItems:
+      type: array
+      items:
+        type: integer   
+      

@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/evbx_resource
+    username: root
+    password: root
+server:
+  servlet:
+    context-path: /v1/evbx
+  port: 8001
