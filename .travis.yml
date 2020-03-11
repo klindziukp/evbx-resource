@@ -16,6 +16,3 @@ script:
   - ./gradlew sonarqube
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-notifications:
-  email:
-    - pavel_klindziuk@epam.com
