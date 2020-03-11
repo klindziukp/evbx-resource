@@ -1,6 +1,6 @@
 env:
   global:
-    - CODECOV_TOKEN=15648159-3a07-4733-a3ef-72374f94791d
+    - CODECOV_TOKEN=b040177c-c3c6-4607-aeaa-7e85545b708f
     - secure: r4pjFbD0yjMY6VYYvo0Bv0XC1MTCzPfMzC8O/EyOLsmYZHGw//e0+XDUGoeN8XYTBUsHa/o1xIojJ3s3FTkdB22Ylnic3cHd1MidmBR0yPJXv6YOodqKGX3kzolQ8PJS4LGxaRVPuT5PmhUm+v1zFFBVYnmAC0G56XTlWY5mfAd+aA732CXM2P75HFbjpeYTZUq6Q8/pwlPEHXmlOI/sj91cMAwWO2js/biKmW2FAPlX0uHO7/2HpyxWf8EEFyp0sOD25LLiiRuBO0jxRKqTqU89DSS/R9iz7ccp5sBvgRhvYtGseiV7nM94Q/piwMyBXqYfq+Qb1clZwdmig50SerF/OiCN2Ie4U8rj6oz50AjuYlnoxg3E+CcuWoAUK3frP7Cwh079SipMCraPCLsRBemSbAKt+6bbpjnoIeFlMh5QZuAPwdjFcXJngiilAcg3xSkkieOQ40sfQdQ74k8DBRooUqH5dbJiVIIIrWqjTjr6PJ2txH91RTZk012IDEiFpd6Plh4QME/1Hl5JLOM4Dw6EthmNAqdDSUIsYmU98L22Tsxe75nA31Bai0Mg2tfGc4U3c1vVtasf8DH79e96xgWibs1/6zNxUi4NAvPMx8M4Tq+ntiCVmNuw7mR1iMiNYLmHh9vE7wPmRjbkRcvJJnSnd2HrfyNGMyZYF+LW+n8=
 language: java
 jdk:
@@ -11,7 +11,6 @@ addons:
     token:
       secure: $SONAR_TOKEN
 services:
-  - docker
   - mysql
 before_install:
   - chmod +x gradlew
