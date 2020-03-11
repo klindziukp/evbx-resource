@@ -3,7 +3,7 @@ env:
     - CODECOV_TOKEN=b040177c-c3c6-4607-aeaa-7e85545b708f
 language: java
 jdk:
-  - oraclejdk8
+  - openjdk8
 addons:
   sonarcloud:
     organization: klindziukp-github
