@@ -9,6 +9,9 @@ import java.util.List;
 
 public final class TestDataProjectionStorage {
 
+    private TestDataProjectionStorage() {
+    }
+
     private static ProjectionFactory factory = new SpelAwareProxyProjectionFactory();
 
     public static List<NameProjection> getBookNameProjections() {

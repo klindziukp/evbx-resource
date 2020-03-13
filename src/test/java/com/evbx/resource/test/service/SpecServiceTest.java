@@ -108,12 +108,33 @@ class SpecServiceTest extends BaseServiceTest {
     }
 
     @Test
-    void itemNotFoundExceptionTest() {
+    void itemNotFoundExceptionGetTest() {
         __GIVEN();
         List<Long> ids = specService.getAllIds();
         __WHEN();
-        long nonPresentId = Collections.max(ids) + 1L;
+        long nonPresentId = Collections.max(ids) + 100L;
         __THEN();
         Assertions.assertThrows(ItemNotFoundException.class, () -> specService.findById(nonPresentId));
+    }
+
+    @Test
+    void itemNotFoundExceptionUpdateTest() {
+        __GIVEN();
+        List<Long> ids = specService.getAllIds();
+        __WHEN();
+        long nonPresentId = Collections.max(ids) + 101L;
+        __THEN();
+        Assertions.assertThrows(ItemNotFoundException.class,
+                () -> specService.update(nonPresentId, new Specification()));
+    }
+
+    @Test
+    void itemNotFoundExceptionDeleteTest() {
+        __GIVEN();
+        List<Long> ids = specService.getAllIds();
+        __WHEN();
+        long nonPresentId = Collections.max(ids) + 102L;
+        __THEN();
+        Assertions.assertThrows(ItemNotFoundException.class, () -> specService.deleteById(nonPresentId));
     }
 }

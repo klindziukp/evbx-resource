@@ -74,7 +74,7 @@ class BookServiceTest extends BaseServiceTest {
         __WHEN();
         Book savedBook = bookService.save(expectedBook);
         Long id = savedBook.getId();
-        long totalAfter  = bookService.findAllBooks().getTotal();
+        long totalAfter = bookService.findAllBooks().getTotal();
         Book extractedBook = bookService.findById(id);
         __THEN();
         assertThat(extractedBook).isEqualToIgnoringGivenFields(expectedBook, Ignore.getUpdatableEntityFields());
@@ -104,12 +104,33 @@ class BookServiceTest extends BaseServiceTest {
     }
 
     @Test
-    void itemNotFoundExceptionTest() {
+    void itemNotFoundExceptionGetTest() {
         __GIVEN();
         List<Long> ids = bookService.getAllIds();
         __WHEN();
-        long nonPresentId = Collections.max(ids) + 1L;
+        long nonPresentId = Collections.max(ids) + 100L;
         __THEN();
         Assertions.assertThrows(ItemNotFoundException.class, () -> bookService.findById(nonPresentId));
+    }
+
+    @Test
+    void itemNotFoundExceptionUpdateTest() {
+        __GIVEN();
+        List<Long> ids = bookService.getAllIds();
+        __WHEN();
+        long nonPresentId = Collections.max(ids) + 101L;
+        __THEN();
+        Assertions.assertThrows(ItemNotFoundException.class,
+                () -> bookService.update(nonPresentId, new Book()));
+    }
+
+    @Test
+    void itemNotFoundExceptionDeleteTest() {
+        __GIVEN();
+        List<Long> ids = bookService.getAllIds();
+        __WHEN();
+        long nonPresentId = Collections.max(ids) + 102L;
+        __THEN();
+        Assertions.assertThrows(ItemNotFoundException.class, () -> bookService.deleteById(nonPresentId));
     }
 }

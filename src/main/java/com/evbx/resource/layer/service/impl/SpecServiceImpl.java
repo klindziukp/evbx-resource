@@ -66,6 +66,9 @@ public class SpecServiceImpl implements SpecService {
 
     @Override
     public void deleteById(long id) {
+        if (!specRepository.existsById(id)) {
+            throw new ItemNotFoundException(Item.SPECIFICATION, id);
+        }
         specRepository.deleteById(id);
     }
 

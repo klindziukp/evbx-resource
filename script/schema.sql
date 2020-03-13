@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `e_books` (
 	`updated_by` VARCHAR(255),
 	`deleted_by` VARCHAR(255),
 	PRIMARY KEY (`id`),
-	CONSTRAINT uc_name UNIQUE (industry_name)
+	CONSTRAINT uc_name UNIQUE (book_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE IF NOT EXISTS `specifications` (
@@ -35,7 +35,6 @@ CREATE TABLE IF NOT EXISTS `specifications` (
     `specification_name` VARCHAR(255),
     `description` VARCHAR(255),
 	`text` LONGTEXT,
-	`description` VARCHAR(255),
 	`created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	`deleted_at` TIMESTAMP NULL DEFAULT NULL,
@@ -43,5 +42,5 @@ CREATE TABLE IF NOT EXISTS `specifications` (
 	`updated_by` VARCHAR(255),
 	`deleted_by` VARCHAR(255),
 	PRIMARY KEY (`id`),
-	CONSTRAINT uc_name UNIQUE (industry_name)
+	CONSTRAINT uc_name UNIQUE (specification_name)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

@@ -33,8 +33,8 @@ class ReportServiceTest extends BaseServiceTest {
         __WHEN();
         List<IndustryReport> actualIndustryReports = reportService.findAllReports().getItems();
         __THEN();
-        assertThat(actualIndustryReports).usingElementComparatorIgnoringFields(Ignore.getUpdatableEntityFields()).isEqualTo(
-                expectedIndustryReports);
+        assertThat(actualIndustryReports).usingElementComparatorIgnoringFields(Ignore.getUpdatableEntityFields())
+                .isEqualTo(expectedIndustryReports);
     }
 
     @Test
@@ -45,7 +45,8 @@ class ReportServiceTest extends BaseServiceTest {
         Long id = expectedIndustryReport.getId();
         IndustryReport actualIndustryReport = reportService.findById(id);
         __THEN();
-        assertThat(actualIndustryReport).isEqualToIgnoringGivenFields(expectedIndustryReport, Ignore.getUpdatableEntityFields());
+        assertThat(actualIndustryReport).isEqualToIgnoringGivenFields(expectedIndustryReport,
+                Ignore.getUpdatableEntityFields());
     }
 
     @Test
@@ -58,8 +59,10 @@ class ReportServiceTest extends BaseServiceTest {
         Long id = savedIndustryReport.getId();
         IndustryReport extractedIndustryReport = reportService.findById(id);
         __THEN();
-        assertThat(mutationIndustryReport).isEqualToIgnoringGivenFields(savedIndustryReport, Ignore.getUpdatableEntityFields());
-        assertThat(mutationIndustryReport).isEqualToIgnoringGivenFields(extractedIndustryReport, Ignore.getUpdatableEntityFields());
+        assertThat(mutationIndustryReport).isEqualToIgnoringGivenFields(savedIndustryReport,
+                Ignore.getUpdatableEntityFields());
+        assertThat(mutationIndustryReport).isEqualToIgnoringGivenFields(extractedIndustryReport,
+                Ignore.getUpdatableEntityFields());
     }
 
     @Test
@@ -74,10 +77,11 @@ class ReportServiceTest extends BaseServiceTest {
         __WHEN();
         IndustryReport savedIndustryReport = reportService.save(expectedIndustryReport);
         Long id = savedIndustryReport.getId();
-        long totalAfter  = reportService.findAllReports().getTotal();
+        long totalAfter = reportService.findAllReports().getTotal();
         IndustryReport extractedIndustryReport = reportService.findById(id);
         __THEN();
-        assertThat(extractedIndustryReport).isEqualToIgnoringGivenFields(expectedIndustryReport, Ignore.getUpdatableEntityFields());
+        assertThat(extractedIndustryReport).isEqualToIgnoringGivenFields(expectedIndustryReport,
+                Ignore.getUpdatableEntityFields());
         assertThat(totalAfter).isEqualTo(totalBefore);
     }
 
@@ -104,12 +108,33 @@ class ReportServiceTest extends BaseServiceTest {
     }
 
     @Test
-    void itemNotFoundExceptionTest() {
+    void itemNotFoundExceptionGetTest() {
         __GIVEN();
         List<Long> ids = reportService.getAllIds();
         __WHEN();
-        long nonPresentId = Collections.max(ids) + 1L;
+        long nonPresentId = Collections.max(ids) + 100L;
         __THEN();
         Assertions.assertThrows(ItemNotFoundException.class, () -> reportService.findById(nonPresentId));
+    }
+
+    @Test
+    void itemNotFoundExceptionUpdateTest() {
+        __GIVEN();
+        List<Long> ids = reportService.getAllIds();
+        __WHEN();
+        long nonPresentId = Collections.max(ids) + 101L;
+        __THEN();
+        Assertions.assertThrows(ItemNotFoundException.class,
+                () -> reportService.update(nonPresentId, new IndustryReport()));
+    }
+
+    @Test
+    void itemNotFoundExceptionDeleteTest() {
+        __GIVEN();
+        List<Long> ids = reportService.getAllIds();
+        __WHEN();
+        long nonPresentId = Collections.max(ids) + 102L;
+        __THEN();
+        Assertions.assertThrows(ItemNotFoundException.class, () -> reportService.deleteById(nonPresentId));
     }
 }
