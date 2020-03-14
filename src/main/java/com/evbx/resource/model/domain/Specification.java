@@ -2,6 +2,8 @@ package com.evbx.resource.model.domain;
 
 import com.evbx.resource.model.common.ResourceEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -17,6 +19,7 @@ import javax.validation.constraints.Size;
 @Table(name = "specifications")
 @Data
 @EqualsAndHashCode(callSuper = true)
+@JsonPropertyOrder({ "id", "specificationName", "description", "text" })
 public class Specification extends ResourceEntity {
 
     @Column(name = "specification_name")
