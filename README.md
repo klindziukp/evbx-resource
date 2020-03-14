@@ -9,14 +9,15 @@ Used to store resources for '[evbx-product](https://github.com/klindziukp/evbx-p
 * Open [swagger-editor](http://editor.swagger.io/)
 * Import file from `contract/evbx-resource-contract.yaml`
 ## Set up database
-#### Using docker MySQL image
-* Configure MySQL database in the `/src/main/resources/docker-compose.yml`
-* Execute command from __project root__ directory `docker-compose -f /src/main/resources/docker-compose.yml up -d`
+#### Using docker MySQL
+* If you already MySQL container installed and running - create database(schema) `evbx_resource`
+* Configure MySQL database in the `src/main/resources/docker-compose.yml`
+* Execute command from __project root__ directory `docker-compose -f src/main/resources/docker-compose.yml up -d` 2 times
 * Verify that MySQL container is started with command `docker ps`
-* Create database `evbx_resource`
-#### Using MySqL
+
+#### Using MySqL instead of docker image
 * Install MySQL database
-* Create database `evbx_resource`
+* Create database(schema) `evbx_resource`
 
 ## Database migrations
 * Update database configuration in `src/main/resources/application.yml` according to MySQL db configuration
