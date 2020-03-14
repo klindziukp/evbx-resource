@@ -1,7 +1,3 @@
-DROP TABLE IF EXISTS `industry_report`;
-DROP TABLE IF EXISTS `e_books`;
-DROP TABLE IF EXISTS `specifications`;
-
 CREATE TABLE IF NOT EXISTS `industry_report` (
 	`id` BIGINT AUTO_INCREMENT,
     `industry_name` VARCHAR(255),

@@ -1,7 +1,3 @@
-DELETE FROM `e_books`;
-DELETE FROM `industry_report`;
-DELETE FROM `specifications`;
-
 INSERT INTO e_books (book_name,description,text,created_by) VALUES
  ('Go-to-guide','Your go-to-guide to electric cars','Costs, environmental impact, incentives, and charging stations. This eBook takes you through everything you need to know about electric cars!','script'),
  ('Charging','Charging at home and at work','Just like your phone, your electric car requires a place to charge at home, at work, and ideally, wherever you go. This whitepaper highlights the key points to consider before buying a charging station that best suits your needs','script'),
