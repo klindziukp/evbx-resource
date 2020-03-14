@@ -5,7 +5,7 @@
 # evbx-resources server
 Used to store resources for '[evbx-product](https://github.com/klindziukp/evbx-product)' server 
 
-##OpenAPI Specification
+## OpenAPI Specification
 * Open [swagger-editor](http://editor.swagger.io/)
 * Import file from `contract/evbx-resource-contract.yaml`
 ## Set up database
