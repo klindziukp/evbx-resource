@@ -14,7 +14,7 @@ Used to store resources for '[evbx-product](https://github.com/klindziukp/evbx-p
 * Configure MySQL database in the `src/main/resources/docker-compose.yml`
 * Execute command from __project root__ directory `docker-compose -f src/main/resources/docker-compose.yml up -d` 2 times
 * Verify that MySQL container is started with command `docker ps`
-
+* Create database(schema) `evbx_resource`
 #### Using MySqL instead of docker image
 * Install MySQL database
 * Create database(schema) `evbx_resource`
