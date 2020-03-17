@@ -53,7 +53,7 @@ public class BookController {
     }
 
     @DeleteMapping(value = "/e-books/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity deleteReport(@PathVariable long id) {
+    public ResponseEntity deleteBook(@PathVariable long id) {
         bookService.deleteById(id);
         return ResponseEntity.ok("Deleted item with id = " + id);
     }

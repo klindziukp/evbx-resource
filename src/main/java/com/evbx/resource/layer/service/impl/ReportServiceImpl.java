@@ -69,7 +69,7 @@ public class ReportServiceImpl implements ReportService {
         if (!reportRepository.existsById(id)) {
             throw new ItemNotFoundException(Item.INDUSTRY_REPORT, id);
         }
-        reportRepository.deleteById(id);
+        reportRepository.softDelete(id, AuthUtil.getUserName());
         LOGGER.info("Report with id = '{}' deleted successfully", id);
     }
 
