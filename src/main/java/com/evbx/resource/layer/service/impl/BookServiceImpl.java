@@ -68,7 +68,7 @@ public class BookServiceImpl implements BookService {
         if (!bookRepository.existsById(id)) {
             throw new ItemNotFoundException(Item.E_BOOK, id);
         }
-        bookRepository.deleteById(id);
+        bookRepository.softDelete(id, AuthUtil.getUserName());
         LOGGER.info("E-Book with id = '{}' deleted successfully", id);
     }
 

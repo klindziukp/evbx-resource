@@ -93,7 +93,7 @@ public class ReportRepositoryTest extends BaseRepositoryTest {
         List<IndustryReport> IndustryReportsBeforeDelete = reportRepository.findAll();
         __WHEN();
         IndustryReport IndustryReportToDelete = TestDataStorage.getRandomItem(IndustryReportsBeforeDelete);
-        reportRepository.deleteById(IndustryReportToDelete.getId());
+        reportRepository.softDelete(IndustryReportToDelete.getId(), "script");
         __THEN();
         List<IndustryReport> IndustryReportsAfterDelete = reportRepository.findAll();
         assertThat(IndustryReportsAfterDelete).doesNotContain(IndustryReportToDelete);
