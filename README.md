@@ -12,7 +12,7 @@ Used to store resources for '[evbx-product](https://github.com/klindziukp/evbx-p
 #### Using docker MySQL image
 * If you already MySQL container installed and running - just create database(schema) `evbx_resource`
 * Configure MySQL database in the `src/main/resources/docker-compose.yml`
-* Execute command from __project root__ directory `docker-compose -f src/main/resources/docker-compose.yml up -d`
+* Run command from __project root__ directory `docker-compose -f src/main/resources/docker-compose.yml up -d`
 * Verify that MySQL container is started with command `docker ps`
 #### Using MySqL instead of docker image
 * Install MySQL database
@@ -34,7 +34,14 @@ flyway {
 	password = 'root'
 }
 ```
-* Execute command from __project root__ directory `./gradlew flywayMigrate`
+* Run command from __project root__ directory `./gradlew flywayMigrate`
 * If some errors appeared - execute command from __project root__ directory `./gradlew flywayRepair`
 ## Application start
-* Execute command from __project root__ directory `./gradlew clean build bootRun -x test` 
+* Run command from __project root__ directory `./gradlew clean build bootRun -x test` 
+## Application start with docker
+* Configure MySQL database in the `src/main/resources/docker-compose.yml`
+* Execute command from __project root__ directory `docker-compose -f src/main/resources/docker-compose.yml up -d`
+* Buid jar via command from __project root__ directory `./gradlew clean build bootJar -x test`
+* Build docker image via command `docker build -t klindziuk/evbx-resource .`
+* Get list of networks via command `docker network ls` and verify that `evbx` network is present.
+* Run docker image `docker run --name=evbx-resource --network=evbx -p 8002:8002 klindziuk/evbx-resource`
