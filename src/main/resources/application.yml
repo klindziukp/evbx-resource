@@ -6,4 +6,4 @@ spring:
 server:
   servlet:
     context-path: /v1/evbx
-  port: 8001
+  port: 8002
