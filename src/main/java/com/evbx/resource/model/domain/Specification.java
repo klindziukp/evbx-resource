@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import org.hibernate.annotations.ResultCheckStyle;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,6 +20,8 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "specifications")
+@SQLDelete(sql = "UPDATE specifications SET deleted_at = CURRENT_TIMESTAMP WHERE id = ?", check = ResultCheckStyle.COUNT)
+@Where(clause = "deleted_at IS null")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @JsonPropertyOrder({ "id", "specificationName", "description", "text" })

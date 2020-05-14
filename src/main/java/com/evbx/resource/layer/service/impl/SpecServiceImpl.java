@@ -69,7 +69,8 @@ public class SpecServiceImpl implements SpecService {
         if (!specRepository.existsById(id)) {
             throw new ItemNotFoundException(Item.SPECIFICATION, id);
         }
-        specRepository.deleteById(id);
+        specRepository.softDelete(id, AuthUtil.getUserName());
+        LOGGER.info("Specification with id = '{}' deleted successfully", id);
     }
 
     private void verifySpecPresence(Specification specification) {

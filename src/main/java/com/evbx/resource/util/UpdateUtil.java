@@ -18,6 +18,12 @@ public final class UpdateUtil {
     private UpdateUtil() {
     }
 
+    /**
+     *  Updates item
+     * @param source source item
+     * @param target target item
+     * @param <T> type of item
+     */
     public static <T extends UpdatableEntity> void updateItem(T source, T target) {
         String[] ignoredProperties = getNullPropertyNames(source);
         BeanUtils.copyProperties(source, target, ignoredProperties);

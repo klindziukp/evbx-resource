@@ -86,7 +86,7 @@ public class BookRepositoryTest extends BaseRepositoryTest {
         List<Book> booksBeforeDelete = bookRepository.findAll();
         __WHEN();
         Book bookToDelete = TestDataStorage.getRandomItem(booksBeforeDelete);
-        bookRepository.deleteById(bookToDelete.getId());
+        bookRepository.softDelete(bookToDelete.getId(), "script");
         __THEN();
         List<Book> booksAfterDelete = bookRepository.findAll();
         assertThat(booksAfterDelete).doesNotContain(bookToDelete);

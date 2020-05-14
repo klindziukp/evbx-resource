@@ -1,6 +1,6 @@
 package com.evbx.resource.test.service;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -18,6 +18,7 @@ import org.springframework.test.context.jdbc.Sql;
 @Sql(scripts = { "classpath:script/clean.sql", "classpath:script/data.sql" })
 abstract class BaseServiceTest {
 
+    @BeforeEach
     void mockSecurityContext() {
         Authentication authentication = Mockito.mock(Authentication.class);
         SecurityContext securityContext = Mockito.mock(SecurityContext.class);

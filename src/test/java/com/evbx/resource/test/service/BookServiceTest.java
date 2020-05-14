@@ -51,7 +51,6 @@ class BookServiceTest extends BaseServiceTest {
     @Test
     void saveBookTest() {
         __GIVEN();
-        mockSecurityContext();
         Book mutationBook = TestDataStorage.getMutationBook();
         __WHEN();
         Book savedBook = bookService.save(mutationBook);
@@ -65,7 +64,6 @@ class BookServiceTest extends BaseServiceTest {
     @Test
     void updateBookTest() {
         __GIVEN();
-        mockSecurityContext();
         Book mutationBook = TestDataStorage.getMutationBook();
         Book expectedBook = TestDataStorage.getRandomItem(TestDataStorage.getTestBooks());
         expectedBook.setBookName(mutationBook.getBookName());

@@ -93,7 +93,7 @@ public class SpecRepositoryTest extends BaseRepositoryTest {
         List<Specification> SpecificationsBeforeDelete = specRepository.findAll();
         __WHEN();
         Specification SpecificationToDelete = TestDataStorage.getRandomItem(SpecificationsBeforeDelete);
-        specRepository.deleteById(SpecificationToDelete.getId());
+        specRepository.softDelete(SpecificationToDelete.getId(), "script");
         __THEN();
         List<Specification> SpecificationsAfterDelete = specRepository.findAll();
         assertThat(SpecificationsAfterDelete).doesNotContain(SpecificationToDelete);
