@@ -9,7 +9,7 @@ info:
       * Used to store resources for Evbox Product Server
   version: '0.0.1-SNAPSHOT'
 servers:
-  - url: http://localhost:8001/
+  - url: http://localhost:8002/
     description: Local Application
 tags:
   - name: e-books
