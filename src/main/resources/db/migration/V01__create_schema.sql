@@ -1,3 +1,5 @@
+USE evbx_resource;
+
 CREATE TABLE IF NOT EXISTS `industry_report` (
 	`id` BIGINT AUTO_INCREMENT,
     `industry_name` VARCHAR(255),
