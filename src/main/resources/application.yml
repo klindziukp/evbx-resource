@@ -1,9 +1,19 @@
+info:
+  app:
+    name: Evbx Resource service
+    description: REST Service for retrievieng ' Resource ' information
+    version: 0.0.1-SNAPSHOT
 spring:
+  redis:
+    host: localhost
+    port: 6380
   datasource:
     url: jdbc:mysql://localhost:3306/evbx_resource
     username: root
     password: root
+  cache:
+    type: redis
 server:
   servlet:
     context-path: /v1/evbx
-  port: 8002
+  port: 8008

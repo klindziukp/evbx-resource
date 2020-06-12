@@ -12,6 +12,10 @@ import com.evbx.resource.util.ValidationUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,16 +34,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Cacheable(value= "allBooksCache", unless= "#result.getTotal() == 0")
     public ItemData<Book> findAllBooks() {
+        LOGGER.info("Get all books");
         return new ItemData<>(bookRepository.findAll());
     }
 
     @Override
+    @Cacheable(value= "bookCache", key= "'book'+#id")
     public Book findById(long id) {
+        LOGGER.info("Get book with id = '{}'", id);
         return bookRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(Item.E_BOOK, id));
     }
 
     @Override
+    @Caching(put = { @CachePut(value = "bookCache", key = "'book'+#book.id") },
+             evict = { @CacheEvict(value = "allBooksCache", allEntries = true) })
     public Book save(Book book) {
         verifyBookPresence(book);
         book.setCreatedBy(AuthUtil.getUserName());
@@ -49,6 +59,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    @Caching(put = { @CachePut(value = "bookCache", key = "'book'+#book.id") },
+             evict = { @CacheEvict(value = "allBooksCache", allEntries = true) })
     public Book update(long id, Book book) {
         Book persistedBook = bookRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(Item.E_BOOK, id));
         verifyBookPresence(book);
@@ -63,7 +75,8 @@ public class BookServiceImpl implements BookService {
         return bookRepository.getAllIds();
     }
 
-    @Override
+    @Caching(evict = { @CacheEvict(value = "bookCache", key = "'book'+#id"),
+                       @CacheEvict(value = "allBooksCache", allEntries = true) })
     public void deleteById(long id) {
         if (!bookRepository.existsById(id)) {
             throw new ItemNotFoundException(Item.E_BOOK, id);

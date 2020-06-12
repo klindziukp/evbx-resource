@@ -1,9 +1,7 @@
 package com.evbx.resource.test.controller;
 
 import com.evbx.resource.data.TestDataStorage;
-import com.evbx.resource.layer.controller.BookController;
 import com.evbx.resource.layer.controller.SpecificationController;
-import com.evbx.resource.model.domain.Book;
 import com.evbx.resource.model.domain.Specification;
 import com.evbx.resource.util.JsonUtil;
 import org.junit.jupiter.api.Test;

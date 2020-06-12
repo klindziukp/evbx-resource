@@ -12,6 +12,10 @@ import com.evbx.resource.util.ValidationUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,16 +34,22 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    @Cacheable(value= "allReportsCache", unless= "#result.getTotal() == 0")
     public ItemData<IndustryReport> findAllReports() {
+        LOGGER.info("Get all reports");
         return new ItemData<>(reportRepository.findAll());
     }
 
     @Override
+    @Cacheable(value= "reportCache", key= "'report'+#id")
     public IndustryReport findById(long id) {
+        LOGGER.info("Get report with id = '{}'", id);
         return reportRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(Item.INDUSTRY_REPORT, id));
     }
 
     @Override
+    @Caching(put = { @CachePut(value = "reportCache", key = "'report'+#industryReport.id") },
+             evict = { @CacheEvict(value = "allReportsCache", allEntries = true) })
     public IndustryReport save(IndustryReport industryReport) {
         industryReport.setCreatedBy(AuthUtil.getUserName());
         verifyReportPresence(industryReport);
@@ -49,6 +59,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    @Caching(put = { @CachePut(value = "reportCache", key = "'report'+#industryReport.id") },
+             evict = { @CacheEvict(value = "allReportsCache", allEntries = true) })
     public IndustryReport update(long id, IndustryReport industryReport) {
         IndustryReport persistedIndustryReport = reportRepository.findById(id).orElseThrow(
                 () -> new ItemNotFoundException(Item.INDUSTRY_REPORT, id));
@@ -65,6 +77,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
+    @Caching(evict = { @CacheEvict(value = "reportCache", key = "'report'+#id"),
+                       @CacheEvict(value = "allReportsCache", allEntries = true) })
     public void deleteById(long id) {
         if (!reportRepository.existsById(id)) {
             throw new ItemNotFoundException(Item.INDUSTRY_REPORT, id);
