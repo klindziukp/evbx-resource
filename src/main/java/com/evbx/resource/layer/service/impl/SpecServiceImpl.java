@@ -12,6 +12,10 @@ import com.evbx.resource.util.ValidationUtil;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,25 +34,33 @@ public class SpecServiceImpl implements SpecService {
     }
 
     @Override
+    @Cacheable(value= "allSpecsCache", unless= "#result.getTotal() == 0")
     public ItemData<Specification> findAllSpecifications() {
+        LOGGER.info("Get all books");
         return new ItemData<>(specRepository.findAll());
     }
 
     @Override
+    @Cacheable(value= "specCache", key= "'spec'+#id")
     public Specification findById(long id) {
+        LOGGER.info("Get book with id = '{}'", id);
         return specRepository.findById(id).orElseThrow(() -> new ItemNotFoundException(Item.SPECIFICATION, id));
     }
 
     @Override
+    @Caching(put = { @CachePut(value = "specCache", key = "'specCache'+#specification.id") },
+             evict = { @CacheEvict(value = "allSpecsCache", allEntries = true) })
     public Specification save(Specification specification) {
         verifySpecPresence(specification);
         specification.setCreatedBy(AuthUtil.getUserName());
         Specification savedSpec = specRepository.save(specification);
-        LOGGER.info("Report with id = '{}' updated successfully", savedSpec.getId());
+        LOGGER.info("Specification with id = '{}' updated successfully", savedSpec.getId());
         return savedSpec;
     }
 
     @Override
+    @Caching(put = { @CachePut(value = "specCache", key = "'spec'+#specification.id") },
+             evict = { @CacheEvict(value = "allSpecsCache", allEntries = true) })
     public Specification update(long id, Specification specification) {
         Specification persistedSpecification = specRepository.findById(id).orElseThrow(
                 () -> new ItemNotFoundException(Item.SPECIFICATION, id));
@@ -65,6 +77,8 @@ public class SpecServiceImpl implements SpecService {
     }
 
     @Override
+    @Caching(evict = { @CacheEvict(value = "specCache", key = "'specCache'+#id"),
+            @CacheEvict(value = "allSpecsCache", allEntries = true) })
     public void deleteById(long id) {
         if (!specRepository.existsById(id)) {
             throw new ItemNotFoundException(Item.SPECIFICATION, id);
