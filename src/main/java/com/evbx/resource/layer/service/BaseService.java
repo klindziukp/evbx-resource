@@ -4,6 +4,7 @@ import java.util.List;
 
 public interface BaseService {
 
-    List<Long> getAllIds();
-    void deleteById(long id);
+  List<Long> getAllIds();
+
+  void deleteById(long id);
 }
