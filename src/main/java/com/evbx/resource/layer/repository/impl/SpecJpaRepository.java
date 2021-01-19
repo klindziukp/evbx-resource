@@ -6,6 +6,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SpecJpaRepository extends JpaRepository<Specification, Long>, SpecRepository {
-
-}
+public interface SpecJpaRepository extends JpaRepository<Specification, Long>, SpecRepository {}

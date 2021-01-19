@@ -13,7 +13,5 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @ComponentScan("com.evbx.resource.layer")
 @WithMockUser(username = "admin", password = "admin", roles = "ADMIN")
 @SpringBootTest
-@Sql(scripts = { "classpath:script/clean.sql", "classpath:script/data.sql" })
-abstract class BaseControllerTest {
-
-}
+@Sql(scripts = {"classpath:script/clean.sql", "classpath:script/data.sql"})
+abstract class BaseControllerTest {}

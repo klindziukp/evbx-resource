@@ -15,15 +15,15 @@ import org.springframework.test.context.jdbc.Sql;
 @AutoConfigureTestDatabase
 @ActiveProfiles("test")
 @ComponentScan("com.evbx.resource.layer")
-@Sql(scripts = { "classpath:script/clean.sql", "classpath:script/data.sql" })
+@Sql(scripts = {"classpath:script/clean.sql", "classpath:script/data.sql"})
 abstract class BaseServiceTest {
 
-    @BeforeEach
-    void mockSecurityContext() {
-        Authentication authentication = Mockito.mock(Authentication.class);
-        SecurityContext securityContext = Mockito.mock(SecurityContext.class);
-        Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
-        Mockito.when(authentication.getName()).thenReturn("script");
-        SecurityContextHolder.setContext(securityContext);
-    }
+  @BeforeEach
+  void mockSecurityContext() {
+    Authentication authentication = Mockito.mock(Authentication.class);
+    SecurityContext securityContext = Mockito.mock(SecurityContext.class);
+    Mockito.when(securityContext.getAuthentication()).thenReturn(authentication);
+    Mockito.when(authentication.getName()).thenReturn("script");
+    SecurityContextHolder.setContext(securityContext);
+  }
 }

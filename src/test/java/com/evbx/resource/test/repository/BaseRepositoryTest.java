@@ -11,8 +11,8 @@ import org.springframework.test.context.jdbc.Sql;
 @AutoConfigureTestDatabase
 @ActiveProfiles("test")
 @ComponentScan("com.evbx.resource.layer")
-@Sql(scripts = { "classpath:script/clean.sql", "classpath:script/data.sql" })
+@Sql(scripts = {"classpath:script/clean.sql", "classpath:script/data.sql"})
 public abstract class BaseRepositoryTest {
 
-    ProjectionVerificationService projectionVerificationService = new ProjectionVerificationService();
+  ProjectionVerificationService projectionVerificationService = new ProjectionVerificationService();
 }

@@ -1,21 +1,21 @@
 package com.evbx.resource.model.data;
 
-import lombok.Data;
-
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import lombok.Data;
 
 @Data
 public class ItemData<T> implements Serializable {
 
-    @SuppressWarnings("squid:S1948")
-    private List<T> items;
-    private long total;
+  @SuppressWarnings("squid:S1948")
+  private List<T> items;
 
-    public ItemData(List<T> items) {
-        this.items = Optional.ofNullable(items).orElse(Collections.emptyList());
-        this.total = this.items.size();
-    }
+  private long total;
+
+  public ItemData(List<T> items) {
+    this.items = Optional.ofNullable(items).orElse(Collections.emptyList());
+    this.total = this.items.size();
+  }
 }
